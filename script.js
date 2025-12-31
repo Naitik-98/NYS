@@ -100,7 +100,7 @@ function createFirework() {
 
         // Random direction
         const angle = Math.random() * Math.PI * 2;
-        const velocity = Math.random() * 100 + 50; // Distance
+        const velocity = Math.random() * 150 + 80; // Increased distance (was 100 + 50)
 
         const tx = Math.cos(angle) * velocity;
         const ty = Math.sin(angle) * velocity;
@@ -121,3 +121,24 @@ function createFirework() {
 
 // Create fireworks randomly
 setInterval(createFirework, 800);
+
+// Music Controls
+const musicBtn = document.getElementById('music-btn');
+const bgMusic = document.getElementById('bg-music');
+let isPlaying = false;
+
+musicBtn.addEventListener('click', () => {
+    if (isPlaying) {
+        bgMusic.pause();
+        musicBtn.textContent = '🎵 Play Music';
+        isPlaying = false;
+    } else {
+        bgMusic.play().then(() => {
+            musicBtn.textContent = '⏸ Pause Music';
+            isPlaying = true;
+        }).catch(err => {
+            console.log("Audio play failed:", err);
+            alert("Please add a music.mp3 file to the folder!");
+        });
+    }
+});
