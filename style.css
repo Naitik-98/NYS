@@ -1,0 +1,244 @@
+:root {
+    --bg-color-top: #050510;
+    --bg-color-mid: #1a1a3a;
+    --bg-color-bot: #101025;
+    --text-color: #ffffff;
+    --accent-color: #ffb7b2;
+    /* Sakura-ish pink */
+    --gold: #ffd700;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    color: var(--text-color);
+    background: linear-gradient(to bottom, var(--bg-color-top), var(--bg-color-mid), var(--bg-color-bot));
+    overflow: hidden;
+    /* Hide main scrollbar */
+    height: 100vh;
+}
+
+/* Background Elements */
+#stars-container,
+#sakura-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Scroll Container */
+.scroller {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    position: relative;
+    z-index: 10;
+}
+
+/* Individual Pages */
+.page {
+    height: 100vh;
+    width: 100%;
+    scroll-snap-align: start;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+}
+
+.content {
+    max-width: 800px;
+    z-index: 10;
+}
+
+/* Typography */
+h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 5rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px rgba(255, 183, 178, 0.5);
+    background: linear-gradient(120deg, #fff, var(--accent-color));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    color: #e0e0e0;
+}
+
+p {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    color: #cccccc;
+    font-weight: 200;
+}
+
+/* New Special Text Style */
+.sakura-text {
+    font-family: 'Dancing Script', cursive;
+    color: var(--accent-color);
+    font-size: 2.2rem;
+    /* Larger than surrounding text */
+    font-weight: 700;
+    text-shadow: 0 0 15px var(--accent-color);
+    vertical-align: middle;
+    margin: 0 5px;
+}
+
+.small-text {
+    font-size: 1rem;
+    margin-top: 2rem;
+    opacity: 0.7;
+}
+
+/* Animations */
+.fade-in {
+    opacity: 0;
+    transition: opacity 1.5s ease-out;
+}
+
+.slide-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.scale-up {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 1s ease-out, transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.glow-text {
+    text-shadow: 0 0 20px var(--accent-color), 0 0 40px var(--gold);
+}
+
+.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.delay-1 {
+    transition-delay: 0.5s;
+}
+
+.delay-2 {
+    transition-delay: 1s;
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    animation: bounce 2s infinite;
+    opacity: 0.8;
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    40% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+
+    60% {
+        transform: translateX(-50%) translateY(-5px);
+    }
+}
+
+/* Sakura Petal Styles */
+.sakura {
+    position: absolute;
+    background-color: var(--accent-color);
+    border-radius: 100% 0 100% 0;
+    opacity: 0.8;
+    transform-origin: center;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(720deg);
+    }
+}
+
+/* Star Styles */
+.star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 2s infinite ease-in-out alternate;
+}
+
+@keyframes twinkle {
+    from {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1.5);
+    }
+}
+
+/* Fireworks Styles */
+#fireworks-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    /* Behind content but above background */
+    opacity: 0.3;
+    /* Faded effect */
+}
+
+.firework-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    transform-origin: center;
+    animation: explode 1.5s ease-out forwards;
+}
+
+@keyframes explode {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(var(--tx), var(--ty)) scale(0);
+        opacity: 0;
+    }
+}
