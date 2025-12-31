@@ -122,23 +122,18 @@ function createFirework() {
 // Create fireworks randomly
 setInterval(createFirework, 800);
 
-// Music Controls
-const musicBtn = document.getElementById('music-btn');
+// Music Controls - Autoplay on interaction
 const bgMusic = document.getElementById('bg-music');
-let isPlaying = false;
 
-musicBtn.addEventListener('click', () => {
-    if (isPlaying) {
-        bgMusic.pause();
-        musicBtn.textContent = '🎵 Play Music';
-        isPlaying = false;
-    } else {
-        bgMusic.play().then(() => {
-            musicBtn.textContent = '⏸ Pause Music';
-            isPlaying = true;
-        }).catch(err => {
-            console.log("Audio play failed:", err);
-            alert("Please add a music.mp3 file to the folder!");
-        });
-    }
-});
+function playMusic() {
+    bgMusic.play().then(() => {
+        // Autoplay started
+        document.removeEventListener('click', playMusic);
+        document.removeEventListener('touchstart', playMusic);
+    }).catch(err => {
+        console.log("Audio play failed:", err);
+    });
+}
+
+document.addEventListener('click', playMusic);
+document.addEventListener('touchstart', playMusic);
